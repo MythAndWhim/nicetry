@@ -18,6 +18,29 @@
     .container {
       text-align: center;
     }
+    .random-media {
+      margin-top: 1.5rem;
+    }
+    .random-media img {
+      max-width: min(70vw, 600px);
+      max-height: 60vh;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      display: block;
+      margin: 0 auto 1rem;
+    }
+    .random-media button {
+      background: #eee;
+      color: #111;
+      border: 0;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .random-media button:active {
+      transform: scale(0.98);
+    }
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
@@ -31,6 +54,56 @@
   <div class="container">
     <h1>mythAndWhim</h1>
     <p>fuck you, but in a nice way</p>
+    <div class="random-media">
+      <img id="randomImage" alt="imagen aleatoria" />
+      <button id="playRandomAudio" type="button">Reproducir audio</button>
+      <audio id="randomAudio" preload="auto"></audio>
+    </div>
   </div>
+  <script>
+    const images = [
+      "Resources/img1.png",
+      "Resources/img2.png",
+      "Resources/img3.png",
+    ];
+    const audios = ["Resources/audio1.m4a"];
+
+    const imageEl = document.getElementById("randomImage");
+    const audioEl = document.getElementById("randomAudio");
+    const playBtn = document.getElementById("playRandomAudio");
+    const mediaWrap = document.querySelector(".random-media");
+
+    function pickRandom(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function setRandomImage() {
+      imageEl.src = pickRandom(images);
+      imageEl.style.display = "block";
+      playBtn.style.display = "none";
+    }
+
+    function setRandomAudio() {
+      audioEl.src = pickRandom(audios);
+      imageEl.style.display = "none";
+      playBtn.style.display = "inline-block";
+      audioEl.play().catch(() => {
+        // Autoplay puede fallar; el botón permite iniciar manualmente.
+      });
+    }
+
+    function setRandomMedia() {
+      if (Math.random() < 0.5) {
+        setRandomImage();
+      } else {
+        setRandomAudio();
+      }
+    }
+
+    setRandomMedia();
+    playBtn.addEventListener("click", () => {
+      setRandomAudio();
+    });
+  </script>
 </body>
 </html>
