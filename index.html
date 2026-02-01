@@ -38,6 +38,12 @@
       border-radius: 999px;
       cursor: pointer;
     }
+    .random-media .refresh-btn {
+      margin-left: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
     .random-media button:active {
       transform: scale(0.98);
     }
@@ -57,6 +63,7 @@
     <div class="random-media">
       <img id="randomImage" alt="imagen aleatoria" />
       <button id="playRandomAudio" type="button">Reproducir audio</button>
+      <button id="refreshMedia" class="refresh-btn" type="button" aria-label="Cambiar contenido">↻</button>
       <audio id="randomAudio" preload="auto"></audio>
     </div>
   </div>
@@ -71,7 +78,7 @@
     const imageEl = document.getElementById("randomImage");
     const audioEl = document.getElementById("randomAudio");
     const playBtn = document.getElementById("playRandomAudio");
-    const mediaWrap = document.querySelector(".random-media");
+    const refreshBtn = document.getElementById("refreshMedia");
 
     function pickRandom(list) {
       return list[Math.floor(Math.random() * list.length)];
@@ -103,6 +110,9 @@
     setRandomMedia();
     playBtn.addEventListener("click", () => {
       setRandomAudio();
+    });
+    refreshBtn.addEventListener("click", () => {
+      setRandomMedia();
     });
   </script>
 </body>
